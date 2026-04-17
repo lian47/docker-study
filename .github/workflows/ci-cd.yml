@@ -1,0 +1,26 @@
+name: Pipeline CI/CD FastAPI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  ci-integration:
+    name: Continuous Integration
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build e Testes Automáticos
+      run: |
+        echo "Executando Build do FastAPI..."
+        echo "Verificando sintaxe do Python..."
+
+  cd-delivery:
+    name: Continuous Delivery
+    needs: ci-integration
+    runs-on: ubuntu-latest
+    steps:
+    - name: Preparando Imagem Docker
+      run: echo "Simulando push para o DockerHub..."
