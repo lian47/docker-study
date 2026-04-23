@@ -41,3 +41,5 @@ jobs:
           severity: info
           text: "🚀 Pipeline finalizado! Testes e Build executados com sucesso!"
           webhookUrl: https://discord.com/api/webhooks/1497011254454390885/oenuLrhYuqBe-cYi9_RKJXEwEy_cxIe6benR92scu8989tbNtuQMuXJLS5-f4wx6lFyT
+
+        #Force
