@@ -11,25 +11,33 @@ jobs:
     name: Continuous Integration
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Configurar o Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.11'
-        
-    - name: Instalar dependências
-      run: |
-        pip install -r requirements.txt
-        pip install pytest httpx
-        
-    - name: Executar os Testes Unitários
-      run: pytest test_main.py
+      - uses: actions/checkout@v4
+
+      - name: Configurar o Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependências
+        run: |
+          pip install -r requirements.txt
+          pip install pytest httpx
+
+      - name: Executar os Testes Unitários
+        run: pytest test_main.py
 
   cd-delivery:
     name: Continuous Delivery
     needs: ci-integration
     runs-on: ubuntu-latest
     steps:
-    - name: Preparando Imagem Docker
-      run: echo "Simulando push para o DockerHub..."
+      - name: Preparando Imagem Docker
+        run: echo "Simulando push para o DockerHub..."
+
+      - name: Enviar Alerta para o Discord
+        uses: rjstone/discord-webhook-notify@v1
+        if: always()
+        with:
+          severity: info
+          text: "🚀 Pipeline finalizado! Testes e Build executados com sucesso!"
+          webhookUrl: https://discord.com/api/webhooks/1497011254454390885/oenuLrhYuqBe-cYi9_RKJXEwEy_cxIe6benR92scu8989tbNtuQMuXJLS5-f4wx6lFyT
